@@ -10,7 +10,7 @@ pipeline {
         stage('Git checkout') {
             steps {
                 echo 'Cloning project codebase...'
-                git branch: 'main', url: 'https://github.com/ADJIBOULOU/devops-fully-automated-infra.git'
+                git branch: 'main', url: 'https://github.com/Gbacrown/Devops-fully-automated-infra.git'
                 sh 'ls'
             }
         }
@@ -58,7 +58,7 @@ pipeline {
                 sh """
                 sudo pip3 install checkov
                 #checkov -d .
-                #checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
+                checkov -d . --skip-check CKV_AWS_23,CKV_AWS_24,CKV_AWS_126,CKV_AWS_135,CKV_AWS_8,CKV_AWS_23,CKV_AWS_24
                 checkov -d . --skip-check CKV_AWS*
                 """
                
@@ -91,7 +91,7 @@ pipeline {
      post { 
         always { 
             echo 'I will always say Hello again!'
-            slackSend channel: '#djamiou-jenkins-cicd-pipeline-alert', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+            slackSend channel: '#emmie-jenkins-cicd-pipeline-alerts', color: COLOR_MAP[currentBuild.currentResult], message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
     
